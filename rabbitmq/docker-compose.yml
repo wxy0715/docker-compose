@@ -1,0 +1,20 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.10.6
+    container_name: rabbitmq
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: wxy0715..
+    ports:
+      - "15672:15672" # 管理界面端口
+      - "5672:5672"   # api 端口
+    volumes:
+      - /docker/docker-compose/rabbitmq/log:/var/log/rabbitmq
+      - /docker/docker-compose/rabbitmq/data:/var/lib/rabbitmq
+    network_mode: "bridge"

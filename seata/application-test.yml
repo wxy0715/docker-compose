@@ -1,0 +1,26 @@
+# 客户端服务接入seata需要加的配置
+seata:
+  enabled: true
+  # seata-spring-boot-starter的数据源自动代理
+  enable-auto-data-source-proxy: true
+  # Seata 事务组编号，用于 TC 集群名 对应service.vgroupMapping
+  tx-service-group: seata-tx-group
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server-addr} #nacos地址
+      group: SEATA_GROUP
+      namespace: 9e70a40c-559f-40ee-a1af-1865e41adb6b #seata命令空间
+      username: nacos
+      password: nacos
+      data-id: seata-server.properties
+  registry:
+    type: nacos
+    nacos:
+      #application: seata-server
+      server-addr: ${spring.cloud.nacos.server-addr} #nacos地址
+      group: SEATA_GROUP
+      namespace: 9e70a40c-559f-40ee-a1af-1865e41adb6b #seata命令空间
+      username: nacos
+      password: nacos
+      cluster: default

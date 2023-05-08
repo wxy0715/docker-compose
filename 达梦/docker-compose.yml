@@ -1,0 +1,15 @@
+# docker-compose.yml
+version: '3.7'
+services:
+  dm8:
+    image: ccb727ce9dce
+    restart: always
+    hostname: dm8
+    container_name: dm8
+    environment:
+      TZ: Asia/Shanghai
+    ports:
+      - '5236:5236'
+    volumes:
+      - '/docker/docker-compose/dm8/data:/opt/dmdbms/data'
+    network_mode: "bridge"

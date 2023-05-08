@@ -1,0 +1,5 @@
+{
+  "insecure-registries": ["ip:9090"],
+  "registry-mirrors": ["http://hub-mirror.c.163.com"],
+  "data-root": "/home/docker"
+}

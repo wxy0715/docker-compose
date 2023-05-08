@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  xxl-job-admin:
+    image: wxy/xxl-job-admin:1.0.0
+    container_name: xxl-job-admin
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    ports:
+      - "9900:9900"
+    volumes:
+      # 配置文件
+      - /docker/docker-compose/xxl-job-admin/logs/:/xxl-job-admin/logs
+    privileged: true
+    network_mode: "bridge"

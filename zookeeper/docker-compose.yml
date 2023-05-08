@@ -1,0 +1,32 @@
+version: '3'
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:3.8.0'
+    container_name: zookeeper
+    restart: always
+    volumes:
+      - "/docker/docker-compose/zookeeper/data:/data"
+      - "/docker/docker-compose/zookeeper/datalog:/datalog"
+    ports:
+      - "2181:2181"
+    environment:
+      TZ: Asia/Shanghai
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+      ZOO_SERVER_ID: 1
+      ZOO_PORT_NUMBER: 2181
+    network_mode: "bridge"
+
+  # 可视化界面
+  zookeeper-webui:
+    image: tobilg/zookeeper-webui
+    container_name: zookeeper-webui
+    restart: always
+    environment:
+      ZK_DEFAULT_NODE: zookeeper:2181
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper
+    ports:
+      - "9091:8080"
+    network_mode: "bridge"

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:14.2
+    container_name: postgres
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
+      ALLOW_IP_RANGE: 0.0.0.0/0 # 允许所有ip访问
+    ports:
+      - "5432:5432"
+    volumes:
+      - /docker/docker-compose/postgres/data:/var/lib/postgresql/data
+    network_mode: "bridge"

@@ -1,0 +1,38 @@
+# 可参考 https://docs.min.io/docs/minio-docker-quickstart-guide.html
+version: '3'
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    volumes:
+      - "/docker/docker-compose/minio/data:/data"
+      - "/docker/docker-compose/minio/minio:/minio"
+      - "/docker/docker-compose/minio/config:/root/.minio"
+    environment:
+      TZ: Asia/Shanghai
+      LANG: en_US.UTF-8
+      MINIO_PROMETHEUS_AUTH_TYPE: "public"
+      MINIO_ACCESS_KEY: "admin"  # 登录账号
+      MINIO_SECRET_KEY: "wxy0715.."  # 登录密码
+      # 开启压缩 on 开启 off 关闭
+      MINIO_COMPRESS: "off"
+      # 扩展名 .pdf,.doc 为空 所有类型均压缩
+      MINIO_COMPRESS_EXTENSIONS: ""
+      # mime 类型 application/pdf 为空 所有类型均压缩
+      MINIO_COMPRESS_MIME_TYPES: ""
+    command: minio server /data --console-address ":9001"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "1"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    ports:
+      - "9001:9001"
+      - "9003:9000"
+    network_mode: "bridge"

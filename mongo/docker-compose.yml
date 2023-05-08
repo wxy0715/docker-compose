@@ -1,0 +1,33 @@
+version: '3'
+services:
+  # mongodb
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: wxy0715..
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /data/logs
+    volumes:
+      - /docker/docker-compose/mongo/db:/data/db
+      - /docker/docker-compose/mongo/log:/data/log
+    ports:
+      - "27017:27017"
+    network_mode: "bridge"
+
+  # 可视化图形工具
+  adminmongo:
+    image: mrvautin/adminmongo
+    restart: always
+    container_name: adminmongo
+    environment:
+      - HOST=0.0.0.0
+    depends_on:
+      - 'mongo'
+    links:
+      - mongo
+    ports:
+      - "1234:1234"
+    network_mode: "bridge"

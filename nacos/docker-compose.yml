@@ -1,0 +1,27 @@
+version: '3'
+services:
+  nacos:
+    image: nacos/nacos-server:v2.0.4
+    container_name: nacos
+    restart: always
+    ports:
+      - 8848:8848
+      - 9848:9848
+      - 9849:9849
+    environment:
+      TZ: Asia/Shanghai
+      MODE: standalone
+      JVM_XMN: 256m
+      JVM_XMS: 256m
+      JVM_XMX: 256m
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: 127.0.0.1
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+    volumes:
+      - /docker/docker-compose/nacos/logs/:/home/nacos/logs
+    privileged: true
+    network_mode: "bridge"

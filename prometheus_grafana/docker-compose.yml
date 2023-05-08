@@ -1,0 +1,126 @@
+version: '3.5'
+services:
+  prometheus:
+    image: prom/prometheus:v2.40.1
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - /docker/docker-compose/prometheus_grafana/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    network_mode: "host"
+
+  grafana:
+    image: grafana/grafana:9.2.4
+    container_name: grafana
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      # 服务地址 用于指定外网ip或域名
+      GF_SERVER_ROOT_URL: ""
+      # admin 管理员密码
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    volumes:
+      - /docker/docker-compose/prometheus_grafana/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /docker/docker-compose/prometheus_grafana/grafana:/var/lib/grafana
+    network_mode: "host"
+
+  # 数据收集
+  node-exporter:
+    hostname: node-exporter
+    container_name: node-exporter
+    image: prom/node-exporter
+    restart: always
+    ports:
+      - 9100:9100
+    environment:
+      - SERVER_PORT=9100
+    network_mode: "host"
+
+  # Docker容器性能监控工具google/cadvisor
+  cadvisor:
+    hostname: cadvisor
+    container_name: cadvisor
+    image: google/cadvisor
+    restart: always
+    privileged: true
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    environment:
+      - SERVER_PORT=8080
+    network_mode: "host"
+
+  # 告警
+  alertmanager:
+    hostname: alertmanager
+    container_name: alertmanager
+    image: prom/alertmanager
+    ports:
+      - 9093:9093
+    environment:
+      - SERVER_PORT=9093
+    volumes:
+      - /docker/docker-compose/prometheus_grafana/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    network_mode: "host"
+
+  Mysqlexporter:
+    hostname: Mysqlexporter
+    container_name: Mysqlexporter
+    image: prom/mysqld-exporter:latest
+    privileged: true
+    ports:
+      - 9104:9104
+    environment:
+      - DATA_SOURCE_NAME=root:root@(127.0.0.1:3306)/
+    network_mode: "host"
+
+  redisexporter:
+    hostname: redisexporter
+    container_name: redisexporter
+    image: oliver006/redis_exporter
+    privileged: true
+    ports:
+      - 9121:9121
+    environment:
+      - REDIS_ADDR=redis://127.0.0.1:6379
+      - REDIS_PASSWORD=redis
+    network_mode: "host"
+
+  kafka-exporter:
+    hostname: kafka-exporter
+    container_name: kafka-exporter
+    image: bitnami/kafka-exporter:latest
+    command:
+      - '--kafka.server=127.0.0.1:9092'
+    restart: always
+    ports:
+      - "9308:9308"
+    network_mode: "host"
+
+  elasticsearch-exporter:
+    hostname: elasticsearch-exporter
+    container_name: elasticsearch-exporter
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+    command:
+      - '--es.uri=http://127.0.0.1:9200'
+    restart: always
+    ports:
+      - "9114:9114"
+    #network_mode: "host"
+
+  zookeeper-exporter:
+    container_name: zookeeper-exporter
+    image: carlpett/zookeeper_exporter
+    restart: always
+    command:
+      - '-zookeeper=127.0.0.1:2181'
+    ports:
+      - '9141:9141'
+    #network_mode: "host"
