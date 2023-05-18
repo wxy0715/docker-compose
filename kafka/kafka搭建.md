@@ -1,6 +1,6 @@
 ## 需要先安装zookeeper
 
-安装教程:https://gitee.com/wxy0715/project/blob/master/docker-compose/zookeeper/zookeeper%E5%AE%89%E8%A3%85.md
+安装教程:https://gitee.com/wxy0715/docker-compose/tree/main/zookeeper
 
 ## 执行命令
 

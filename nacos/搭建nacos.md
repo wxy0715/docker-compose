@@ -8,7 +8,7 @@ wget https://wxy-oss.oss-cn-beijing.aliyuncs.com/nacos.zip && unzip nacos.zip &&
 
 ## mysql搭建可以参考
 
-[docker-compos搭建mysql8](https://gitee.com/wxy0715/project/blob/master/docker-compose/mysql/%E6%90%AD%E5%BB%BAmysql8.md)
+[docker-compos搭建mysql8](https://gitee.com/wxy0715/docker-compose/tree/main/mysql)
 
 ## 创建数据库和表
 

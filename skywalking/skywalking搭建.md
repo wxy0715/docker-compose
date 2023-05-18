@@ -1,6 +1,6 @@
 ## 服务端搭建
 
-依赖于Elasticsearch:https://gitee.com/wxy0715/project/tree/master/docker-compose/elk
+依赖于Elasticsearch:https://gitee.com/wxy0715/docker-compose/blob/main/elk/elk%E6%90%AD%E5%BB%BA.md
 
 
 

@@ -1,6 +1,6 @@
 ## 配置文件查看地址
 
-https://gitee.com/wxy0715/project/tree/master/docker-compose/prometheus_grafana
+https://gitee.com/wxy0715/docker-compose/tree/main/prometheus_grafana
 
 ## 下载
 
