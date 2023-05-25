@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  easy-retry:
+    image: byteblogs/easy-retry:1.3.0
+    container_name: easy-retry
+    ports:
+      - "1789:8080"
+      - "1788:1788"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      JAVA_OPTS: -Xms300m -Xmx512m
+      spring.datasource.username: root
+      spring.datasource.password: Seasky123456
+      spring.datasource.url: jdbc:mysql://192.168.1.80:3308/easy_retry?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    privileged: false
+    network_mode: "bridge"
