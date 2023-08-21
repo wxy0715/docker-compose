@@ -7,7 +7,7 @@ services:
     ports:
       - "9876:9876"
     environment:
-      JAVA_OPT: -server -Xms512m -Xmx512m
+      JAVA_OPT: -server -Xms512m -Xmn128M
     command: sh mqnamesrv
     volumes:
       - /docker/docker-compose/rocketmq/namesrv/logs:/home/rocketmq/logs/rocketmqlogs
@@ -22,7 +22,7 @@ services:
       - "10912:10912"
     environment:
       NAMESRV_ADDR: "mqnamesrv:9876"
-      JAVA_OPT_EXT: "-server -Xms256m -Xmx256m -Xmn256m"
+      JAVA_OPT_EXT: "-server -Xms512M -Xmx512M -Xmn128M -XX:-AssumeMP"
     command: sh mqbroker -c /home/rocketmq/rocketmq-4.9.4/conf/broker.conf
     depends_on:
       - mqnamesrv

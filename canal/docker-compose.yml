@@ -1,0 +1,35 @@
+# canal
+version: '3.5'
+services:
+  canal-server:
+    image: canal/canal-server:v1.1.7
+    container_name: canal-server
+    restart: always
+    ports:
+      - 11111:11111
+    volumes:
+      - /docker/docker-compose/canal/conf/example:/home/admin/canal-server/conf/example
+      - /docker/docker-compose/canal/conf/canal.properties:/home/admin/canal-server/conf/canal.properties
+      - /docker/docker-compose/canal/logs:/home/admin/canal-server/logs
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      JAVA_OPTS: -Xms512m -Xmx512m
+    privileged: false
+    network_mode: "bridge"
+
+  canal-admin:
+    image: canal/canal-admin:latest
+    container_name: canal-admin
+    restart: always
+    ports:
+      - 8089:8089
+    environment:
+      spring.datasource.username: canal
+      spring.datasource.password: canal
+      spring.datasource.url: jdbc:mysql://8.142.156.127:3307/canal_manager?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      # 时区上海
+      TZ: Asia/Shanghai
+      JAVA_OPTS: -Xms512m -Xmx512m
+    privileged: false
+    network_mode: "bridge"
