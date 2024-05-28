@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nginxwebui:
+    image: registry.cn-hangzhou.aliyuncs.com/cym1102/nginxwebui:4.1.1
+    container_name: nginxwebui
+    restart: always
+    volumes:
+      - ./data:/home/nginxWebUI
+    environment:
+      - BOOT_OPTIONS==-Xmx128m
+      - TZ=Asia/shanghai
+    privileged: true
+    network_mode: "bridge"
