@@ -291,7 +291,7 @@ service iptables save
 
 
 
-## 访问 ip:9000
+## 访问 ip:9090
 
 ![image-20230422210639785](https://wxy-md.oss-cn-shanghai.aliyuncs.com/image-20230422210639785.png)
 
