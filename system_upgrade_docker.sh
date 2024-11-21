@@ -300,15 +300,15 @@ install_nginx() {
 
 # 推荐根据文档按需安装
 main(){
-  # yum_config  # 只需执行一次
-  # iptables_install # 只需执行一次
+  yum_config  # 只需执行一次
+  iptables_install # 只需执行一次
   ################################## 以下是服务,可以自行选择下载
-  #install_ftp
-  #install_jdk
-  #install_docker
-  #install_docker_compose
-  #install_docker_portainer
-  #install_mysql8
+  install_ftp
+  install_jdk
+  install_docker
+  install_docker_compose
+  install_docker_portainer
+  install_mysql8
   #install_nacos
   #install_skywalking # 需要改compose的ip
   #install_postgresql
@@ -319,11 +319,11 @@ main(){
   #install_rabbitmq
   #install_rocketmq # 需要改配置文件ip
   #install_kafka # 需要改compose的ip & 一定先安装zookeeper
-  #install_nginx
+  install_nginx
   #install_mongodb
   #install_tomcat
   #install_sentinel
-  install_prometheus_grafana # 需要改compose的ip
+  #install_prometheus_grafana # 需要改compose的ip
   ##################################
 }
 main
